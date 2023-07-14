@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { api } from "./api/apiSlice";
 
 
 const store = configureStore({
