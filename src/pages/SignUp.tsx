@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSignupMutation } from "../redux/api/apiSlice";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -8,30 +8,42 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [signup, { isLoading }] = useSignupMutation();
-   const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords don't match");
-      return;
-    }
+   if (password !== confirmPassword) {
+     setErrorMessage("Passwords don't match");
+     return;
+   }
 
-    try {
-      await signup({ email, password });
-       navigate("/login"); 
-      if ({ email, password }) {
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-      }
+   if (!email || !password || !confirmPassword) {
+     setErrorMessage("Please fill in all fields");
+     return;
+   }
 
-     
-    } catch (error) {
-      setErrorMessage("Error occurred during signup");
-    }
-  };
+   try {
+     await signup({ email, password, confirmPassword });
+     alert("Signup successful!");
+
+     navigate("/login");
+     setEmail("");
+     setPassword("");
+     setConfirmPassword("");
+   } catch (error: any) {
+     if (
+       error.message &&
+       error.message.toLowerCase().includes("email already registered")
+     ) {
+       setErrorMessage("Email is already registered");
+       alert("Email already exists");
+     } else {
+       setErrorMessage("Error occurred during signup");
+     }
+   }
+ };
+
 
   return (
     <div className="mx-auto my-8 card w-96 bg-white shadow-xl">
