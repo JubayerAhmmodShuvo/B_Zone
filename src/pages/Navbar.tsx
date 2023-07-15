@@ -14,7 +14,7 @@ const Navbar = () => {
           <span className="text-red-500">B</span>_Zone
         </Link>
       </div>
-      <div className="flex-none space-x-4">
+      <div className="lg:flex-none flex-column space-x-4">
         <div className="space-x-6 font-semibold">
           <NavLink to="/" exact className="nav-link" activeClassName="active">
             Home

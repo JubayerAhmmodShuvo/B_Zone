@@ -7,12 +7,12 @@ const AllBooks = () => {
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative">
-      <div className="col-span-3 z-10 mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start sticky top-16 h-[calc(100vh-80px)]">
+      <div className="lg:col-span-3 col-span-12  mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start">
         {/* Add your content here */}
         <h2>Sidebar Content</h2>
         <p>Some additional information or navigation links</p>
       </div>
-      <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
+      <div className="lg:col-span-9  col-span-12 grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-10 pb-20">
         {data?.map((book: IBook) => (
           <BookCard key={book._id} book={book} />
         ))}
