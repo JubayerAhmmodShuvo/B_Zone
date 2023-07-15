@@ -32,6 +32,10 @@ const routes = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      // {
+      //   path: "*",
+      //   element: <NotFound />,
+      // },
     ],
   },
 ]);
