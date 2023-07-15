@@ -10,27 +10,34 @@ const AddBook = () => {
   const [postBook, { isLoading, isSuccess, isError, error }] =
     usePostBookMutation();
 
- const handleAddBook = () => {
-   postBook({
-     title,
-     author,
-     genre,
-     publicationDate,
-   })
-     .unwrap() 
-     .then(() => {
-       setTitle("");
-       setAuthor("");
-       setGenre("");
-       setPublicationDate("");
-     });
- };
+const handleAddBook = () => {
+  if (!title || !author || !genre || !publicationDate) {
+    alert("Please fill in all the fields.");
+    return;
+  }
+
+  postBook({
+    title,
+    author,
+    genre,
+    publicationDate,
+  })
+    .unwrap()
+    .then(() => {
+      setTitle("");
+      setAuthor("");
+      setGenre("");
+      setPublicationDate("");
+    });
+};
 
 
   return (
     <div className=" form-control items-center">
       <h1 className="font-bold text-xl">Add Book</h1>
-      {isSuccess && <p>Book added successfully!</p>}
+      {isSuccess && (
+        <p className=" font-sans text-2xl text-green-400/100">Book added successfully!</p>
+      )}
       {isError && <p>Error adding book: {error?.toString()}</p>}
       <form>
         <div>
