@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSignupMutation } from "../redux/api/apiSlice";
+import { useNavigate } from "react-router-dom"; 
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -7,6 +8,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [signup, { isLoading }] = useSignupMutation();
+   const navigate = useNavigate(); 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +20,13 @@ const SignUp = () => {
 
     try {
       await signup({ email, password });
-      alert(`Account created for ${email}`);
+       navigate("/login"); 
+      if ({ email, password }) {
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      }
+
      
     } catch (error) {
       setErrorMessage("Error occurred during signup");
@@ -31,21 +39,21 @@ const SignUp = () => {
         <input
           type="email"
           placeholder="Email"
-          className="input input-bordered input-secondary w-full max-w-xs my-4"
+          className="input input-bordered  bg-white input-secondary w-full max-w-xs my-4"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="input input-bordered input-secondary w-full max-w-xs my-4"
+          className="input input-bordered  bg-white input-secondary w-full max-w-xs my-4"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           placeholder="Confirm password"
-          className="input input-bordered input-secondary w-full my-4 max-w-xs"
+          className="input input-bordered  bg-white input-secondary w-full my-4 max-w-xs"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
