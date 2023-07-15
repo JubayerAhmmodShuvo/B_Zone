@@ -12,7 +12,7 @@ const Home = () => {
     <div>
       <div className=" grid grid-cols-3 gap-10 pb-20">
         {data?.map((book: IBook) => (
-          <BookCard key={book.id} book={book} />
+          <BookCard key={book._id} book={book} />
         ))}
       </div>
     </div>

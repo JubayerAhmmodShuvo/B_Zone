@@ -1,4 +1,6 @@
 import { IBook } from "../types/globalTypes";
+import { Link } from "react-router-dom";
+
 
 interface BookCardProps {
   book: IBook;
@@ -11,9 +13,12 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
     <div>
       <div className="card h-96 border bg-secondary-content">
         <div className="card-body">
+          <Link to={`/book-details/${book._id}`} className="w-full">
+            
           <h2 className="card-title">{book.title}</h2>
           <h3>Author: {book.author}</h3>
           <p>Genre: {book.genre}</p>
+          </Link>
           <p>Publication_Date: {formattedDate}</p>
 
           <div className="card-actions justify-end">

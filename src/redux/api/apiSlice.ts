@@ -24,7 +24,10 @@ export const api = createApi({
     getLatestBook: builder.query({
       query: () => "/api/latest-books",
     }),
+    singleBook: builder.query({
+      query: (id) => `/api/books/${id}`,
+    }),
   }),
 });
 
-export const { useSignupMutation, useLoginMutation, useGetBooksQuery,useGetLatestBookQuery } = api;
+export const { useSignupMutation, useLoginMutation, useGetBooksQuery,useGetLatestBookQuery,useSingleBookQuery } = api;
