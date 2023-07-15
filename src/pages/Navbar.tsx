@@ -42,12 +42,12 @@ const Navbar = () => {
 
     dispatch(logout());
 
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
     <nav className="navbar bg-accent sticky top-0 z-10 ">
-        <div className="flex-1">
+      <div className="flex-1">
         <Link to="/" className="text-2xl font-bold">
           <span className="text-red-500">B</span>_Zone
         </Link>
@@ -60,9 +60,15 @@ const Navbar = () => {
           <NavLink to="/allbooks" className="nav-link" activeClassName="active">
             All Books
           </NavLink>
-          <NavLink to="/addbook" className="nav-link" activeClassName="active">
-            Add Book
-          </NavLink>
+          {isAuthenticated && (
+            <NavLink
+              to="/addbook"
+              className="nav-link"
+              activeClassName="active"
+            >
+              Add Book
+            </NavLink>
+          )}
         </div>
       </div>
       <div className="dropdown dropdown-end">
@@ -75,13 +81,31 @@ const Navbar = () => {
           </div>
         </button>
         <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-slate-50 rounded-box w-52">
-          <li>
-            <h6>Account</h6>
-          </li>
+          
           {isAuthenticated ? (
-            <li>
-              <button onClick={handleLogout}>Sign Out</button>
-            </li>
+            <>
+              <li>
+                <NavLink
+                  to="/wishlist"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  Wishlist
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/readinglist"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  Reading List
+                </NavLink>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Sign Out</button>
+              </li>
+            </>
           ) : (
             <>
               <li>
