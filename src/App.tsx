@@ -1,10 +1,12 @@
+import Navbar from "./pages/Navbar"
 
 function App() {
 
 
   return (
-    <div className="">
-      <h1>Hello</h1>
+    <div className="  items-center h-[calc(100vh-80px)] max-w-7xl mx-auto">
+      <Navbar />
+      
     </div>
   );
 }
