@@ -22,11 +22,10 @@ const Login = () => {
     login({ email, password })
       .unwrap()
       .then((data) => {
-        // Assuming the server returns user data on successful login
         dispatch(loginSuccess(data.user));
         localStorage.setItem("token", data.token);
         alert("Login successful!");
-        navigate("/"); // Replace "/" with the path to your homepage
+        navigate("/"); 
       })
       .catch((error) => {
         console.error("Error logging in:", error);
