@@ -8,10 +8,10 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="navbar bg-transparent">
+    <nav className="navbar bg-accent sticky top-0 z-10 ">
       <div className="flex-1">
         <Link to="/" className="text-2xl font-bold">
-          <span className="text-red-500" >B</span>_Zone
+          <span className="text-red-500">B</span>_Zone
         </Link>
       </div>
       <div className="flex-none space-x-4">

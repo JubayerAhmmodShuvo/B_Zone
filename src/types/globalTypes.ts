@@ -12,13 +12,13 @@ export interface TokenResponse {
   token: string;
 }
 
-export interface Book {
+export interface IBook {
   id: string;
   title: string;
   author: string;
   genre: string;
   publicationDate: Date;
-  reviews: Review[];
+  reviews?: Review[];
 }
 
 export interface Review {

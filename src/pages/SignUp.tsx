@@ -17,13 +17,26 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <h1>Sign up</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm password" />
-        <button type="submit">Sign up</button>
+    <div className="mx-auto  my-8 card w-96 bg-white shadow-xl">
+      <form onSubmit={handleSubmit} className="form-control my-8 items-center">
+        <input
+          type="email"
+          placeholder="Email"
+          className="input input-bordered input-secondary w-full max-w-xs my-4"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="input input-bordered input-secondary w-full max-w-xs my-4"
+        />
+        <input
+          type="password"
+          placeholder="Confirm password"
+          className="input input-bordered input-secondary w-full my-4 max-w-xs"
+        />
+        <button className="btn btn-primary mb-12" type="submit">
+          Sign up
+        </button>
       </form>
     </div>
   );
