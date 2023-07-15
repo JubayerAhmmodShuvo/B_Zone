@@ -1,11 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import { RouterProvider } from "react-router-dom";
+import routes from "./routes/routes.tsx";
 import { Provider } from "react-redux";
-import store from './redux/store';
-import routes from './routes/routes';
-
+import store from "./redux/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
