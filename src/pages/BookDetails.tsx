@@ -18,7 +18,8 @@ const BookDetails = () => {
           <p>Publication_Date: {formattedDate}</p>
 
           <div className="card-actions justify-end">
-            <button className="btn">Buy Now</button>
+            <button className="btn btn-primary w-24">Edit </button>
+            <button className="btn btn-error w-24">Delete</button>
           </div>
         </div>
       </div>
