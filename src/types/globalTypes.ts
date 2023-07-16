@@ -11,7 +11,10 @@ export interface SignupData {
 export interface TokenResponse {
   token: string;
 }
-
+export interface IReview {
+  _id: string;
+  comment: string;
+}
 export interface IBook {
   _id: string;
   title: string;
