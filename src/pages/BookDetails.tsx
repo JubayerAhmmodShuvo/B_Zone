@@ -1,3 +1,4 @@
+import BookReview from "../components/BookReview";
 import { useSingleBookQuery } from "../redux/api/apiSlice";
 import { useParams } from "react-router-dom";
 
@@ -23,6 +24,11 @@ const BookDetails = () => {
           </div>
         </div>
       </div>
+      
+
+     <div className="divider"></div> 
+     { id && <BookReview bookId={id} />}
+
     </div>
   );
 };

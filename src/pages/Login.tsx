@@ -3,7 +3,7 @@ import { useLoginMutation } from "../redux/api/apiSlice";
 
 import { useNavigate } from "react-router-dom"; 
 import { useAppDispatch } from "../redux/hook";
-import { loginSuccess } from "../redux/features/authSlice";
+import { loginSuccess, setLoading } from "../redux/features/authSlice";
 
 
 const Login = () => {
@@ -16,7 +16,8 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-const handleLogin = () => {
+  const handleLogin = () => {
+   dispatch(setLoading(true));
   if (!email || !password) {
     alert("Please enter both email and password.");
     return;
@@ -25,8 +26,9 @@ const handleLogin = () => {
   login({ email, password })
     .unwrap()
     .then((data) => {
-     
+      dispatch(setLoading(false));
       dispatch(loginSuccess(data));
+      console.log(data);
 
       localStorage.setItem("email", data.email);
       localStorage.setItem("token", data.token);
@@ -36,6 +38,7 @@ const handleLogin = () => {
       navigate("/");
     })
     .catch((error) => {
+       dispatch(setLoading(false));
       console.error("Error logging in:", error);
     });
 };

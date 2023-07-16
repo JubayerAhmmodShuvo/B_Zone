@@ -49,7 +49,16 @@ export const api = createApi({
         body: { bookId },
       }),
     }),
-
+    postReview: builder.mutation({
+      query: (data) => ({
+        url: `/api/books/${data.id}/reviews`,
+        method: "POST",
+        body: { comment: data.comment },
+      }),
+    }),
+    getBookReviews: builder.query({
+      query: (bookId) => `/api/books/${bookId}/reviews`,
+    }),
   }),
 });
 
@@ -57,6 +66,6 @@ export const api = createApi({
 export const { useSignupMutation, useLoginMutation,
   useGetBooksQuery, useGetLatestBookQuery, usePostBookMutation,
   useSingleBookQuery, useAddToReadingListMutation,
-  useAddToWishlistMutation,
+  useAddToWishlistMutation,usePostReviewMutation,useGetBookReviewsQuery
  
 } = api;
