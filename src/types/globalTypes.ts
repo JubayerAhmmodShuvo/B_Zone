@@ -12,6 +12,7 @@ export interface TokenResponse {
   token: string;
 }
 export interface IReview {
+  user: string;
   _id: string;
   comment: string;
 }

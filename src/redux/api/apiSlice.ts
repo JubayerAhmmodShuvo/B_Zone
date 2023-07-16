@@ -6,7 +6,7 @@ export const api = createApi({
     baseUrl: "http://localhost:5000",
     prepareHeaders: (headers, state) => {
       const token = localStorage.getItem("token");
-      const email=localStorage.getItem("email");
+      const email = localStorage.getItem("email");
       console.log(token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -64,9 +64,10 @@ export const api = createApi({
       query: (data) => ({
         url: `/api/books/${data.id}/reviews`,
         method: "POST",
-        body: { comment: data.comment },
+        body: { comment: data.comment, user: localStorage.getItem("email") }, 
       }),
     }),
+
     getBookReviews: builder.query({
       query: (bookId) => `/api/books/${bookId}/reviews`,
     }),

@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import { useGetBookReviewsQuery, usePostReviewMutation } from "../redux/api/apiSlice";
 import { IReview } from "../types/globalTypes";
 
+
 interface BookReviewProps {
   bookId: string;
 }
@@ -16,11 +17,15 @@ const BookReview = ({ bookId }: BookReviewProps) => {
         pollingInterval: 3000,
       });
 
+  const email = localStorage.getItem("email");
+
+  
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    addReview({ id: bookId, comment });
+    addReview({ id: bookId, comment, user: email });
     setComment("");
   };
 
@@ -36,6 +41,7 @@ const BookReview = ({ bookId }: BookReviewProps) => {
               Write a Review
             </label>
             <br />
+            <p>{email}</p>
             <textarea
               id="comment"
               value={comment}
@@ -60,7 +66,7 @@ const BookReview = ({ bookId }: BookReviewProps) => {
       </div>
       <div className="my-5 items-center">
         <h3 className="items-center text-3xl text-center font-serif font-bold text-accent">
-         All The Reviews
+          All The Reviews
         </h3>
 
         {isReviewsLoading ? (
@@ -68,7 +74,8 @@ const BookReview = ({ bookId }: BookReviewProps) => {
         ) : (
           reviews?.map((review: IReview) => (
             <div key={review._id} className="my-3  ">
-              <p className="input input-bordered  bg-white input-secondary">
+              <h3 className="my-1 text-lg p-2 font-serif">User: {review.user}</h3>
+              <p className="input input-bordered  bg-white input-secondary p-2">
                 {review.comment}
               </p>
             </div>
