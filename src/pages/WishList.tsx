@@ -3,7 +3,7 @@ import { useGetWishListQuery } from "../redux/api/apiSlice";
 
 
 const WishList = () => {
-  // Fetch the wishlist data using the RTK Query hook
+
   const {
     data: wishlistData,
     isLoading,
@@ -23,7 +23,7 @@ const WishList = () => {
     return <p>Error fetching wishlist.</p>;
   }
  
-    return <WishListData wishlistData={wishlistData} />;
+    return <WishListData list={wishlistData} />;
 
 
   

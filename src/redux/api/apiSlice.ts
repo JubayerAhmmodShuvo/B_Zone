@@ -64,7 +64,7 @@ export const api = createApi({
       query: (data) => ({
         url: `/api/books/${data.id}/reviews`,
         method: "POST",
-        body: { comment: data.comment, user: localStorage.getItem("email") }, 
+        body: { comment: data.comment, user: localStorage.getItem("email") },
       }),
     }),
 
@@ -88,8 +88,11 @@ export const api = createApi({
     getWishList: builder.query({
       query: () => "/api/wishlist",
     }),
-    })
-  })
+    getReadingList: builder.query({
+      query: () => "/api/readinglist",
+    }),
+  }),
+});
 
 
 export const {
@@ -106,4 +109,5 @@ export const {
   useDeleteBookMutation,
   useUpdateBookMutation,
   useGetWishListQuery,
+  useGetReadingListQuery
 } = api;

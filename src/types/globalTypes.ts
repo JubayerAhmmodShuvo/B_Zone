@@ -42,3 +42,15 @@ export interface BookData {
   genre: string;
   publicationDate: Date;
 }
+
+export interface Props {
+  list: {
+    _id: string;
+    book: {
+      title: string;
+      author: string;
+      genre: string;
+    };
+  }[];
+}
+
