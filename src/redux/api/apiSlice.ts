@@ -2,7 +2,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:5000",
+    prepareHeaders: (headers, state) => {
+      const token = localStorage.getItem("token");
+      const email=localStorage.getItem("email");
+      console.log(token);
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     signup: builder.mutation({
       query: (userData) => ({
@@ -66,7 +77,6 @@ export const api = createApi({
       }),
     }),
 
-    
     updateBook: builder.mutation({
       query: ({ id, ...bookData }) => ({
         url: `/api/books/${id}`,
@@ -77,11 +87,17 @@ export const api = createApi({
   }),
 });
 
-
-export const { useSignupMutation, useLoginMutation,
-  useGetBooksQuery, useGetLatestBookQuery, usePostBookMutation,
-  useSingleBookQuery, useAddToReadingListMutation,
-  useAddToWishlistMutation, usePostReviewMutation, useGetBookReviewsQuery,
-  useDeleteBookMutation,useUpdateBookMutation,
- 
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useGetBooksQuery,
+  useGetLatestBookQuery,
+  usePostBookMutation,
+  useSingleBookQuery,
+  useAddToReadingListMutation,
+  useAddToWishlistMutation,
+  usePostReviewMutation,
+  useGetBookReviewsQuery,
+  useDeleteBookMutation,
+  useUpdateBookMutation,
 } = api;

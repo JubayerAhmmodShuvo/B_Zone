@@ -1,4 +1,5 @@
 import { useAddToReadingListMutation, useAddToWishlistMutation } from "../redux/api/apiSlice";
+import useAuth from "../redux/features/useAuth";
 import { IBook } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 
@@ -8,20 +9,25 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
-   const { _id } = book;
+  const { isAuthenticated,email } = useAuth();
+  const { _id } = book;
   const formattedDate = new Date(book.publicationDate).toLocaleDateString();
-   const [addToWishlist, { isLoading: isAddingToWishlist }] =
-     useAddToWishlistMutation();
-   const [addToReadingList, { isLoading: isAddingToReadingList }] =
+  const [addToWishlist, { isLoading: isAddingToWishlist }] =
+    useAddToWishlistMutation();
+ const [addToReadingList, { isLoading: isAddingToReadingList }] =
     useAddToReadingListMutation();
   
+  
   const handleAddToWishlist = () => {
+    if (!isAuthenticated) {
+      alert("You need to be authenticated to add a book to your wishlist");
+      return;
+    }
     addToWishlist(_id);
   };
-
-  const handleAddToReadingList = () => {
-    addToReadingList(_id);
-  };
+   const handleAddToReadingList = () => {
+     addToReadingList(_id);
+   };
 
   return (
     <div>
