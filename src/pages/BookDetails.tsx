@@ -1,13 +1,37 @@
 import BookReview from "../components/BookReview";
-import { useSingleBookQuery } from "../redux/api/apiSlice";
-import { useParams } from "react-router-dom";
+import { useDeleteBookMutation, useSingleBookQuery } from "../redux/api/apiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const BookDetails = () => {
+    const navigate = useNavigate();
   const { id } = useParams();
-  const { data: book } = useSingleBookQuery(id);
+  const { data: book } = useSingleBookQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 2000,
+  });
   const formattedDate = book
     ? new Date(book.publicationDate).toLocaleDateString()
     : "";
+   const [deleteBook, { isLoading: isDeleteLoading, isError: isDeleteError }] =
+     useDeleteBookMutation();
+
+   const handleDelete = () => {
+     if (window.confirm("Are you sure you want to delete this book?")) {
+       deleteBook(id)
+         .unwrap()
+         .then(() => {
+           navigate("/");
+           console.log(isDeleteError);
+           console.log(isDeleteLoading);
+         })
+         .catch((error) => {
+           console.log("Error deleting book:", error);
+         });
+     }
+   };
+
+  
+  
 
   return (
     <div>
@@ -19,16 +43,18 @@ const BookDetails = () => {
           <p>Publication_Date: {formattedDate}</p>
 
           <div className="card-actions justify-end">
-            <button className="btn btn-primary w-24">Edit </button>
-            <button className="btn btn-error w-24">Delete</button>
+            <Link to={`/books/${id}/update`} className="btn btn-primary w-24">
+              Edit
+            </Link>
+            <button onClick={handleDelete} className="btn btn-error w-24">
+              Delete
+            </button>
           </div>
         </div>
       </div>
-      
 
-     <div className="divider"></div> 
-     { id && <BookReview bookId={id} />}
-
+      <div className="divider"></div>
+      {id && <BookReview bookId={id} />}
     </div>
   );
 };

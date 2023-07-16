@@ -59,6 +59,21 @@ export const api = createApi({
     getBookReviews: builder.query({
       query: (bookId) => `/api/books/${bookId}/reviews`,
     }),
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/api/books/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    
+    updateBook: builder.mutation({
+      query: ({ id, ...bookData }) => ({
+        url: `/api/books/${id}`,
+        method: "PUT",
+        body: bookData,
+      }),
+    }),
   }),
 });
 
@@ -66,6 +81,7 @@ export const api = createApi({
 export const { useSignupMutation, useLoginMutation,
   useGetBooksQuery, useGetLatestBookQuery, usePostBookMutation,
   useSingleBookQuery, useAddToReadingListMutation,
-  useAddToWishlistMutation,usePostReviewMutation,useGetBookReviewsQuery
+  useAddToWishlistMutation, usePostReviewMutation, useGetBookReviewsQuery,
+  useDeleteBookMutation,useUpdateBookMutation,
  
 } = api;
