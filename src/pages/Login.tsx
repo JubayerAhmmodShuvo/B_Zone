@@ -10,29 +10,36 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
+
   const [login, { isLoading, isError, error }] = useLoginMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      alert("Please enter both email and password.");
-      return;
-    }
+const handleLogin = () => {
+  if (!email || !password) {
+    alert("Please enter both email and password.");
+    return;
+  }
 
-    login({ email, password })
-      .unwrap()
-      .then((data) => {
-        dispatch(loginSuccess(data.user));
-        localStorage.setItem("token", data.token);
-        sessionStorage.setItem("token", data.token);
-        alert("Login successful!");
-        navigate("/"); 
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-      });
-  };
+  login({ email, password })
+    .unwrap()
+    .then((data) => {
+     
+      dispatch(loginSuccess(data));
+
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("token", data.token);
+      
+
+      alert("Login successful!");
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error logging in:", error);
+    });
+};
+
 
   return (
     <div className="form-control items-center">

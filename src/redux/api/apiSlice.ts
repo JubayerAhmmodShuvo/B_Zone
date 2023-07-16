@@ -50,20 +50,13 @@ export const api = createApi({
       }),
     }),
 
-    getWishlist: builder.query({
-      query: () => "/api/wishlist",
-    }),
-
-    getReadingList: builder.query({
-      query: () => "/api/readinglist",
-    }),
   }),
 });
 
 
 export const { useSignupMutation, useLoginMutation,
   useGetBooksQuery, useGetLatestBookQuery, usePostBookMutation,
-  useSingleBookQuery, useGetReadingListQuery, useAddToReadingListMutation,
+  useSingleBookQuery, useAddToReadingListMutation,
   useAddToWishlistMutation,
-  useGetWishlistQuery
+ 
 } = api;
