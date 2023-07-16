@@ -85,8 +85,12 @@ export const api = createApi({
         body: bookData,
       }),
     }),
-  }),
-});
+    getWishList: builder.query({
+      query: () => "/api/wishlist",
+    }),
+    })
+  })
+
 
 export const {
   useSignupMutation,
@@ -101,4 +105,5 @@ export const {
   useGetBookReviewsQuery,
   useDeleteBookMutation,
   useUpdateBookMutation,
+  useGetWishListQuery,
 } = api;

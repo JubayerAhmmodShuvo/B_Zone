@@ -4,7 +4,10 @@ import { IBook } from "../types/globalTypes";
 import SearchAndFilter from "../components/SearchAndFilter";
 
 const AllBooks = () => {
-  const { data } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 2000,
+  });
   
 
 

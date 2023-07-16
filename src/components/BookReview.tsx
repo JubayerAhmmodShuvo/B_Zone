@@ -37,11 +37,13 @@ const BookReview = ({ bookId }: BookReviewProps) => {
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="text-center items-center mt-10">
-            <label className="text-center " htmlFor="comment">
-              Write a Review
+            <label  htmlFor="comment">
+             Waiting for your valuable Review
             </label>
             <br />
-            <p>{email}</p>
+            <p>
+              You are logged in as <span className="font-serif text-lg" >{email}</span>
+            </p>
             <textarea
               id="comment"
               value={comment}
@@ -74,7 +76,9 @@ const BookReview = ({ bookId }: BookReviewProps) => {
         ) : (
           reviews?.map((review: IReview) => (
             <div key={review._id} className="my-3  ">
-              <h3 className="my-1 text-lg p-2 font-serif">User: {review.user}</h3>
+              <h3 className="my-1 text-lg p-2 font-serif">
+                User: {review.user}
+              </h3>
               <p className="input input-bordered  bg-white input-secondary p-2">
                 {review.comment}
               </p>
