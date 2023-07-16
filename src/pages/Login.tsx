@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hook";
 import { loginSuccess } from "../redux/features/authSlice";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +25,7 @@ const Login = () => {
       .then((data) => {
         dispatch(loginSuccess(data.user));
         localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         alert("Login successful!");
         navigate("/"); 
       })

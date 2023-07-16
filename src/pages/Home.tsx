@@ -5,7 +5,8 @@ import { IBook } from "../types/globalTypes";
 
 const Home = () => {
 
-  const { data } = useGetLatestBookQuery(undefined);
+  const { data } = useGetLatestBookQuery(undefined,   {refetchOnMountOrArgChange: true,
+    pollingInterval: 2000},);
  
 
   return (
