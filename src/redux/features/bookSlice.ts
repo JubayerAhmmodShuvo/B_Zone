@@ -1,20 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import { RootState } from "../store";
 import { useGetBooksQuery } from "../api/apiSlice";
 
+interface Book {
+  _id: string;
+  title: string;
+  author: string;
+  genre: string;
+  publicationDate: string;
+}
 
-export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
+interface BooksState {
+  books: Book[];
+  searchQuery: string;
+  genreFilter: string;
+  yearFilter: string;
+}
+
+const initialState: BooksState = {
+  books: [],
+  searchQuery: "",
+  genreFilter: "",
+  yearFilter: "",
+};
+
+export const fetchBooks = createAsyncThunk("allbooks/fetchBooks", async () => {
   const { data } = await useGetBooksQuery(undefined);
   return data;
 });
 
 const booksSlice = createSlice({
   name: "books",
-  initialState: {
-    books: [],
-    searchQuery: "",
-    genreFilter: "",
-    yearFilter: "",
-  },
+  initialState,
   reducers: {
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
@@ -35,4 +53,24 @@ const booksSlice = createSlice({
 
 export const { setSearchQuery, setGenreFilter, setYearFilter } =
   booksSlice.actions;
+
+export const selectFilteredBooks = (state: RootState) => {
+  const { searchQuery, genreFilter, yearFilter, books } = state.books;
+
+  return books.filter((book) => {
+    const titleMatch = book.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const authorMatch = book.author
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const genreMatch = book.genre
+      .toLowerCase()
+      .includes(genreFilter.toLowerCase());
+    const yearMatch = book.publicationDate.includes(yearFilter);
+
+    return titleMatch || authorMatch || genreMatch || yearMatch;
+  });
+};
+
 export default booksSlice.reducer;
