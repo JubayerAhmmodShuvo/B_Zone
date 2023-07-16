@@ -34,7 +34,36 @@ export const api = createApi({
         body: bookData,
       }),
     }),
+    addToWishlist: builder.mutation({
+      query: (bookId) => ({
+        url: `/api/wishlist/${bookId}`,
+        method: "POST",
+        body: { bookId },
+      }),
+    }),
+
+    addToReadingList: builder.mutation({
+      query: (bookId) => ({
+        url: `/api/readinglist/${bookId}`,
+        method: "POST",
+        body: { bookId },
+      }),
+    }),
+
+    getWishlist: builder.query({
+      query: () => "/api/wishlist",
+    }),
+
+    getReadingList: builder.query({
+      query: () => "/api/readinglist",
+    }),
   }),
 });
 
-export const { useSignupMutation, useLoginMutation, useGetBooksQuery,useGetLatestBookQuery,usePostBookMutation,useSingleBookQuery } = api;
+
+export const { useSignupMutation, useLoginMutation,
+  useGetBooksQuery, useGetLatestBookQuery, usePostBookMutation,
+  useSingleBookQuery, useGetReadingListQuery, useAddToReadingListMutation,
+  useAddToWishlistMutation,
+  useGetWishlistQuery
+} = api;

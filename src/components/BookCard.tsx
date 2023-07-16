@@ -1,3 +1,4 @@
+import { useAddToReadingListMutation, useAddToWishlistMutation } from "../redux/api/apiSlice";
 import { IBook } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 
@@ -7,7 +8,20 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
+   const { _id } = book;
   const formattedDate = new Date(book.publicationDate).toLocaleDateString();
+   const [addToWishlist, { isLoading: isAddingToWishlist }] =
+     useAddToWishlistMutation();
+   const [addToReadingList, { isLoading: isAddingToReadingList }] =
+    useAddToReadingListMutation();
+  
+  const handleAddToWishlist = () => {
+    addToWishlist(_id);
+  };
+
+  const handleAddToReadingList = () => {
+    addToReadingList(_id);
+  };
 
   return (
     <div>
@@ -21,9 +35,17 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           <p>Publication_Date: {formattedDate}</p>
 
           <div className="card-actions">
-            <button className="btn btn-accent w-full ">Add To Wishlist</button>
-            <button className="btn btn-accent w-full">
-              Add To Readinglist
+            <button
+              className="btn btn-accent w-full"
+              onClick={handleAddToWishlist}
+            >
+              {isAddingToWishlist ? "Adding..." : "Add To Wishlist"}
+            </button>
+            <button
+              className="btn btn-accent w-full"
+              onClick={handleAddToReadingList}
+            >
+              {isAddingToReadingList ? "Adding..." : "Add To Reading List"}
             </button>
           </div>
         </div>
