@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useSingleBookQuery,
@@ -49,6 +49,7 @@ const UpdateBook = () => {
         navigate(`/book-details/${id}`,);
       })
       .catch((error) => {
+        console.log(error);
         alert(`You are not the author to update this book`);
       });
   };

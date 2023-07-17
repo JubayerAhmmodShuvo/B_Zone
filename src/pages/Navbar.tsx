@@ -31,7 +31,6 @@ interface NavLinkProps {
 }
 
 const Navbar = () => {
-  const location = useLocation();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

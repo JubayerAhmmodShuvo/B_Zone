@@ -9,7 +9,7 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
-  const { isAuthenticated,email } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { _id } = book;
   const formattedDate = new Date(book.publicationDate).toLocaleDateString();
   const [addToWishlist, { isLoading: isAddingToWishlist }] =

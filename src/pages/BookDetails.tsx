@@ -25,6 +25,7 @@ const BookDetails = () => {
            console.log(isDeleteLoading);
          })
          .catch((error) => {
+           console.log(error);
            alert(`You are not the author to delete this book`);
          });
      }

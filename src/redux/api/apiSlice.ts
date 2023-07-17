@@ -4,7 +4,7 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://bookzone-k7nc.onrender.com/",
-    prepareHeaders: (headers, state) => {
+    prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       const email = localStorage.getItem("email");
 
