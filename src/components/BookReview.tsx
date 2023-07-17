@@ -62,7 +62,6 @@ const BookReview = ({ bookId }: BookReviewProps) => {
             </button>
           </div>
           {isError && <p>Error adding review.</p>}
-          {/* Show the success message when isSuccess is true */}
           {isSuccess && <p>Review added successfully.</p>}
         </form>
       </div>

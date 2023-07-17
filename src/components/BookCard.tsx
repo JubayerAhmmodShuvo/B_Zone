@@ -32,13 +32,15 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
     <div>
       <div className="card h-96 border bg-secondary-content">
-        <div className="card-body">
-          <Link to={`/book-details/${book._id}`} className="w-full">
-            <h2 className="card-title">{book.title}</h2>
-            <h3>Author: {book.author}</h3>
-            <p>Genre: {book.genre}</p>
-          </Link>
-          <p>Publication_Date: {formattedDate}</p>
+        <div className="card-body ">
+          <div className="p-6 mb-5">
+            <Link to={`/book-details/${book._id}`} className="w-full">
+              <h2 className="card-title ">{book.title}</h2>
+              <h3>Author: {book.author}</h3>
+              <p>Genre: {book.genre}</p>
+              <p className="">Publication_Date: {formattedDate}</p>
+            </Link>
+          </div>
 
           <div className="card-actions">
             <button

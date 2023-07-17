@@ -28,7 +28,6 @@ const Login = () => {
     .then((data) => {
       dispatch(setLoading(false));
       dispatch(loginSuccess(data));
-      console.log(data);
 
       localStorage.setItem("email", data.email);
       localStorage.setItem("token", data.token);

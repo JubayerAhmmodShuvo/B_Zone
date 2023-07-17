@@ -37,7 +37,7 @@ const ReadingListData = ({ list }: Props) => {
   };
 
   return (
-    <div className="grid grid-cols-6 mb-20">
+    <div className="grid lg:grid-cols-6 grid-cols-1 mb-20">
       {list.map((item) => (
         <div className="card h-48 border bg-secondary-content" key={item._id}>
           <div className="card-body bg-slate-300 rounded">

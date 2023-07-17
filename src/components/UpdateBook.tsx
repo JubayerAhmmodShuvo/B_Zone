@@ -49,7 +49,7 @@ const UpdateBook = () => {
         navigate(`/book-details/${id}`,);
       })
       .catch((error) => {
-        console.log("Error updating book:", error);
+        alert(`You are not the author to update this book`);
       });
   };
 

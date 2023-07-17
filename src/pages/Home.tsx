@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import { useGetLatestBookQuery } from "../redux/api/apiSlice";
 import { IBook } from "../types/globalTypes";
@@ -15,6 +16,12 @@ const Home = () => {
         {data?.map((book: IBook) => (
           <BookCard key={book._id} book={book} />
         ))}
+      </div>
+      <div className="items-center text-center justify-center">
+       
+        <button className="btn btn-primary mb-10 items-center text-center justify-center">
+          <Link to="/allbooks">All Books</Link>
+        </button>
       </div>
     </div>
   );
