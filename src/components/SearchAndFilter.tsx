@@ -1,79 +1,98 @@
-// SearchAndFilter.tsx
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setGenreFilter,
-  setSearchQuery,
-  setYearFilter,
-  selectFilteredBooks,
-} from "../redux/features/bookSlice";
-import { RootState } from "../redux/store";
-import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { IBook } from "../types/globalTypes";
 
-const SearchAndFilter = () => {
-  const dispatch = useAppDispatch();
-  const { searchQuery, genreFilter, yearFilter } = useAppSelector(
-    (state: RootState) => state.books
+interface Props {
+  data: IBook[] | undefined;
+  onFilterChange: (filteredBooks: IBook[] | null) => void;
+}
+
+const SearchAndFilter = ({ data, onFilterChange }: Props) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [genreFilter, setGenreFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState("");
+
+  const availableGenres = Array.from(
+    new Set(data?.map((book) => book.genre)) || []
   );
 
-  const filteredBooks = useAppSelector(selectFilteredBooks);
-
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1800 + 1 }, (_, index) =>
+    (currentYear - index).toString()
+  );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDebouncedSearchQuery(e.target.value);
+    setSearchQuery(e.target.value);
   };
 
   const handleGenreFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setGenreFilter(e.target.value));
+    setGenreFilter(e.target.value);
   };
 
   const handleYearFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setYearFilter(e.target.value));
+    setYearFilter(e.target.value);
   };
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      dispatch(setSearchQuery(debouncedSearchQuery));
-    }, 300);
+    let filteredBooks: IBook[] | null = null;
+    if (data) {
+      filteredBooks = data;
+      if (searchQuery) {
+        filteredBooks = filteredBooks.filter(
+          (book) =>
+            book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            book.author.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      if (genreFilter) {
+        filteredBooks = filteredBooks.filter(
+          (book) => book.genre === genreFilter
+        );
+      }
+      if (yearFilter) {
+        filteredBooks = filteredBooks.filter(
+          (book) =>
+            new Date(book.publicationDate).getFullYear().toString() ===
+            yearFilter
+        );
+      }
+    }
 
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [debouncedSearchQuery, dispatch]);
+    onFilterChange(filteredBooks);
+  }, [data, searchQuery, genreFilter, yearFilter, onFilterChange]);
 
   return (
-    <div>
+    <div className="grid " >
       <input
         type="text"
         placeholder="Search books..."
-        value={debouncedSearchQuery}
+        value={searchQuery}
+        className="input input-bordered  bg-white input-secondary w-full my-4 max-w-xs  mb-12"
         onChange={handleSearchChange}
       />
-      <select value={genreFilter} onChange={handleGenreFilterChange}>
+      <select
+        className="input input-bordered  bg-white input-secondary w-full my-4 max-w-xs mb-10"
+        value={genreFilter}
+        onChange={handleGenreFilterChange}
+      >
         <option value="">All Genres</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Non-fiction">Non-fiction</option>
-        {/* Add more genre options */}
+        {availableGenres.map((genre) => (
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
+        ))}
       </select>
-      <select value={yearFilter} onChange={handleYearFilterChange}>
+      <select
+        className="input input-bordered  bg-white input-secondary w-full my-4 max-w-xs mb-10"
+        value={yearFilter}
+        onChange={handleYearFilterChange}
+      >
         <option value="">All Years</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        {/* Add more year options */}
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
       </select>
-
-      {filteredBooks.length > 0 ? (
-        filteredBooks.map((book) => (
-          <div key={book._id}>
-            <p>{book.title}</p>
-            <p>{book.author}</p>
-            {/* Add more book details */}
-          </div>
-        ))
-      ) : (
-        <p>No books match the selected criteria.</p>
-      )}
     </div>
   );
 };

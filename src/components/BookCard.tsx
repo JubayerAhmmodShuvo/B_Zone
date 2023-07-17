@@ -38,7 +38,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
               <h2 className="card-title ">{book.title}</h2>
               <h3>Author: {book.author}</h3>
               <p>Genre: {book.genre}</p>
-              <p className="">Publication_Date: {formattedDate}</p>
+              <p className="">PublicationDate: {formattedDate}</p>
             </Link>
           </div>
 
