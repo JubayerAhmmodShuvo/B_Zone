@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { RootState } from "../redux/store";
+import {
+  setSearchQuery,
+  setGenreFilter,
+  setYearFilter,
+} from "../redux/features/filterSlice.ts";
 import { IBook } from "../types/globalTypes";
+import { useAppDispatch, useAppSelector } from "../redux/hook.ts";
 
 interface Props {
   data: IBook[] | undefined;
@@ -7,9 +14,10 @@ interface Props {
 }
 
 const SearchAndFilter = ({ data, onFilterChange }: Props) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [genreFilter, setGenreFilter] = useState("");
-  const [yearFilter, setYearFilter] = useState("");
+  const { searchQuery, genreFilter, yearFilter } = useAppSelector(
+    (state: RootState) => state.filter
+  );
+  const dispatch = useAppDispatch();
 
   const availableGenres = Array.from(
     new Set(data?.map((book) => book.genre)) || []
@@ -21,18 +29,18 @@ const SearchAndFilter = ({ data, onFilterChange }: Props) => {
   );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    dispatch(setSearchQuery(e.target.value));
   };
 
   const handleGenreFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGenreFilter(e.target.value);
+    dispatch(setGenreFilter(e.target.value));
   };
 
   const handleYearFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setYearFilter(e.target.value);
+    dispatch(setYearFilter(e.target.value));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     let filteredBooks: IBook[] | null = null;
     if (data) {
       filteredBooks = data;
@@ -61,7 +69,7 @@ const SearchAndFilter = ({ data, onFilterChange }: Props) => {
   }, [data, searchQuery, genreFilter, yearFilter, onFilterChange]);
 
   return (
-    <div className="grid " >
+    <div className="grid">
       <input
         type="text"
         placeholder="Search books..."

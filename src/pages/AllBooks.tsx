@@ -22,19 +22,17 @@ const AllBooks = () => {
         <SearchAndFilter data={data} onFilterChange={handleFilterChange} />
       </div>
       <div className="lg:col-span-9   col-span-12 gap-10 pb-20">
-    
-          <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  ">
-            {filteredData
-              ? filteredData.map((book: IBook) => (
-                  <BookCard key={book._id} book={book} />
-                ))
-              : data?.map((book: IBook) => (
-                  <BookCard key={book._id} book={book} />
-                ))}
-            {filteredData && filteredData.length === 0 && (
-              <p>No books match the selected criteria.</p>
-            )}
-        
+        <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  ">
+          {filteredData
+            ? filteredData.map((book: IBook) => (
+                <BookCard key={book._id} book={book} />
+              ))
+            : data?.map((book: IBook) => (
+                <BookCard key={book._id} book={book} />
+              ))}
+          {filteredData && filteredData.length === 0 && (
+            <p>No books match the selected criteria.</p>
+          )}
         </div>
       </div>
     </div>
