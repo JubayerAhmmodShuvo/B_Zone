@@ -6,7 +6,7 @@ export const api = createApi({
     baseUrl: "https://bookzone-k7nc.onrender.com/",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
-      const email = localStorage.getItem("email");
+      
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
