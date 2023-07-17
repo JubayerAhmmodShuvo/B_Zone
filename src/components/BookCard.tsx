@@ -31,7 +31,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
 
   return (
     <div>
-      <div className="card h-96 border bg-secondary-content">
+      <div className="card h-96 border bg-secondary-content m-2">
         <div className="card-body ">
           <div className="p-6 mb-5">
             <Link to={`/book-details/${book._id}`} className="w-full">
