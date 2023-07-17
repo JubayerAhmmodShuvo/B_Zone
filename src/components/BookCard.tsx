@@ -26,10 +26,10 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
     addToWishlist(_id);
   };
   const handleAddToReadingList = () => {
-      if (!isAuthenticated) {
-        alert("You need to be authenticated to add a book to your readinglist");
-        return;
-      }
+       if (!isAuthenticated) {
+         alert("You need to be authenticated to add a book to your Readinglist");
+         return;
+       }
      addToReadingList(_id);
    };
 
